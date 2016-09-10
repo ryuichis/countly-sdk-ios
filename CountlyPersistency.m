@@ -216,7 +216,9 @@ NSString* const kCountlyStarRatingStatusKey = @"kCountlyStarRatingStatusKey";
 - (NSString* )retrieveStoredDeviceID
 {
     NSString* retrievedDeviceID = [NSUserDefaults.standardUserDefaults objectForKey:kCountlyStoredDeviceIDKey];
-
+    return retrievedDeviceID;
+    
+    /*
     if(retrievedDeviceID)
     {
         COUNTLY_LOG(@"Device ID successfully retrieved from UserDefaults: %@", retrievedDeviceID);
@@ -256,6 +258,7 @@ NSString* const kCountlyStarRatingStatusKey = @"kCountlyStarRatingStatusKey";
     COUNTLY_LOG(@"Device ID can not be retrieved!");
 
     return nil;
+     */
 }
 
 - (void)storeDeviceID:(NSString *)deviceID
@@ -263,6 +266,7 @@ NSString* const kCountlyStarRatingStatusKey = @"kCountlyStarRatingStatusKey";
     [NSUserDefaults.standardUserDefaults setObject:deviceID forKey:kCountlyStoredDeviceIDKey];
     [NSUserDefaults.standardUserDefaults synchronize];
     
+    /*
     NSDictionary *keychainDict =
     @{
         (__bridge id)kSecAttrAccount:       kCountlyStoredDeviceIDKey,
@@ -284,6 +288,7 @@ NSString* const kCountlyStarRatingStatusKey = @"kCountlyStarRatingStatusKey";
     {
         COUNTLY_LOG(@"Device ID can not be stored! %d", status);
     }
+     */
 }
 
 - (NSString *)retrieveWatchParentDeviceID
