@@ -168,7 +168,16 @@ NSString* const kCountlyStarRatingStatusKey = @"kCountlyStarRatingStatusKey";
     {
         url = [[NSFileManager.defaultManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] lastObject];
 #if TARGET_OS_OSX
-        url = [url URLByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier];
+        NSArray *potentialDirectories = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
+                                                                            NSUserDomainMask,
+                                                                            YES);
+        
+        if ([potentialDirectories count] > 0) {
+            url = [NSURL fileURLWithPath:[[potentialDirectories objectAtIndex:0] stringByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier]];
+        } else {
+            url = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier]];
+        }
+        
 #endif
         NSError *error = nil;
 
